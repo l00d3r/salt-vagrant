@@ -5,11 +5,11 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  os = "generic/ubuntu2004"
-  net_ip = "192.168.56"
+  os = "generic/rocky8"
+  net_ip = "192.168.50"
 
   config.vm.define :master, primary: true do |master_config|
-    master_config.vm.provider "virtualbox" do |vb|
+    master_config.vm.provider "parallels" do |vb|
         vb.memory = "2048"
         vb.cpus = 1
         vb.name = "master"
@@ -47,7 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ["minion2",    "#{net_ip}.12",    "1024",    os ],
   ].each do |vmname,ip,mem,os|
     config.vm.define "#{vmname}" do |minion_config|
-      minion_config.vm.provider "virtualbox" do |vb|
+      minion_config.vm.provider "parallels" do |vb|
           vb.memory = "#{mem}"
           vb.cpus = 1
           vb.name = "#{vmname}"
